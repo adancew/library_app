@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+<h1>skanuj kod zasobu</h1>
+<p> {{ request.user.is_authenticated }} </p>
+<p> {{ request.user }} </p>
+
+<p><a href="">skan poprawny</a></p>
+<p><a href="">skan niepoprawny</a></p>
+
+<p><a href="/rentals/reader/{{object.id}}/borrow_enter_resource/">reczne wprowadzanie kodu zasobu</a></p>
+
+    
+{% endblock %}

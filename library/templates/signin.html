@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+<h1>this is signup page</h1>
+<p> login jako bibliotekarz automatycznie loguje jako konto o id 2</p>    
+<p> login jako czytelnik automatycznie loguje jako konto o id 3</p>    
+
+    <form class="site-form" action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Sign in">
+    </form>
+
+{% endblock %}

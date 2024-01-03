@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+<h1>strona glowna do zarzadzania wypozyczeniami</h1>
+<p>{{ request.user.is_authenticated }}</p>
+<p> {{ request.user }}</p>
+
+<p><a href="/rentals/scan_card/">nowe wypozyczenie</a></p>
+
+<p><a href="">zwrot</a></p>
+
+
+    
+{% endblock %}

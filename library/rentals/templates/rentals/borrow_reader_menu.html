@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+<h1>opcje dla czytelnika {{object.first_name}} {{object.last_name}}</h1>
+
+<p><a href="/rentals/reader/{{object.id}}/borrow_scan_resource/">nowe wypozyczenie</a></p>
+<p><a href="">historia wypozyczen</a></p>
+<p><a href="">oplaty</a></p>
+<p><a href="">dane czytelnika</a></p>
+
+{% endblock %}

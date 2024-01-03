@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+<h1>this is librarian dashboard</h1>
+<p>is authenticated: {{ request.user.is_authenticated }}</p>
+<h1>Welcome, {{ request.user }}</h1>
+    
+
+<p><a href="/rentals/" >wypozyczenia</a></p>
+<p><a href="" >oplaty</a></p>
+<p><a href="" >zasoby</a></p>
+<p><a href="" >czytelnicy</a></p>
+
+
+{% endblock %}
