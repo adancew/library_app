@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+
+from django.contrib.messages import constants as messages
 import os
 
 AUTH_USER_MODEL = "shared.Account"
@@ -44,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shared',
     'rentals',
-    'user',
+    'user', # views of the reader
+    'resources'
 ]
 
 # TODO maybe later: create middleware for managing users
@@ -143,7 +146,20 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'static'),
+)
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+}

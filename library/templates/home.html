@@ -2,8 +2,11 @@
 
 {% block content %} 
 
-    <h1>home template</h1>
     {{ request.user.is_authenticated }}
     {{ request.user }}
+
+    <h2>aktualności</h2>
+
+    <p><a href="/accounts/login/"> logowanie </a></p>
     
 {% endblock %}

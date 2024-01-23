@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 
+
 {% block content %} 
+
+{% if messages %}
+<div class="messages" >
+    {% for message in messages %}
+    <h2 {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h2>
+    
+    {% endfor %}
+</div>
+{% endif %}
 
 <h1>skanuj karte</h1>
 <p> {{ request.user.is_authenticated }} </p>
 <p> {{ request.user }} </p>
 
-<p><a href="">skan poprawny</a></p>
-<p><a href="">skan niepoprawny</a></p>
+<form class="site-form" action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" name="scan_ok" value="ok" />
+    <input type="submit" name="scan_bad" value="bad" />
+</form>
 
 <p><a href="/rentals/enter_card/">reczne wprowadzanie kodu karty</a></p>
 
