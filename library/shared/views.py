@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
 from django.contrib.auth.decorators import login_required
@@ -38,6 +38,9 @@ def signin_view(request, *args, **kwargs):
 
     return render(request, 'signin.html', {'form': form})
 
+def signout_view(request):
+    logout(request)
+    return render(request, 'home.html')
 
 
 @login_required

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block navbar %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Biblioteka</a>
+   
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Strona główna <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Katalog</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">O nas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Kontakt</a>
+        </li>
+        
+        <li>
+            <form class="form-inline my-2 my-lg-0 px-5">
+                <input class="form-control me-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-5" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
+          aria-haspopup="true" aria-expanded="false" >
+            Moje konto
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Ustawienia</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/accounts/logout">Wyloguj</a>
+          </div>
+        </li>
+        
+      </ul>
+
+      
+      
+      
+    </div>
+  </nav>
+
+{% endblock %}
+
+{% block content %} 
+
+    {{ request.user.is_authenticated }}
+    {{ request.user }}
+
+    <h2>aktualności</h2>
+
+    <p><a href="/accounts/login/"> logowanie </a></p>
+    
+{% endblock %}
