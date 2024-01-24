@@ -12,5 +12,8 @@ urlpatterns = [
 
     path('user/', include('user.urls')),
     path('rentals/', include('rentals.urls')),
+
+    path('resources/', include('resources.urls')),
+    
     
 ]

@@ -222,8 +222,7 @@ def return_enter(request, *args, **kwargs):
                 if(not rental): raise Exception # ugly, but works for now
                 rental.update(status="RETURNED", date_returned=date.today())
                 Resource.objects.filter(id=resource.id).update(status="AVAILABLE")
-                return render(request, 'rentals/confirm_return.html', 
-                              {'form': form})
+                return render(request, 'rentals/confirm_return.html', {'form': form})
             except:
                 form = EnterCodeForm()
                 messages.error(request, "Wystąpił błąd")
