@@ -1,12 +1,98 @@
 {% extends 'base.html' %}
 
-{% block content %} 
 
-    {{ request.user.is_authenticated }}
-    {{ request.user }}
+{% block navbar %}
 
-    <h2>aktualności</h2>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Biblioteka</a>
 
-    <p><a href="/accounts/login/"> logowanie </a></p>
-    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Strona główna <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Katalog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">O nas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Kontakt</a>
+            </li>
+
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle px-5" href="#" id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Moje konto
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Ustawienia</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/accounts/logout">Wyloguj</a>
+                </div>
+            </li>
+            {% else %}
+
+            <li class="nav-item px-5">
+                <a class="nav-link" href="/accounts/login-as/">Logowanie</a>
+            </li>
+
+            
+            {% endif %}
+
+        </ul>
+
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <h2 class="p-5">aktualności</h2>
+
+    <div class="row">
+      <div class="col-sm d-flex align-items-stretch">
+        <div class="card">
+            <div class="card-header">Nowe powieści detektywistyczne</div>
+            <div class="card-body">
+              <h5 class="card-title">21.01.2024</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at nisi placerat, interdum tellus egestas, faucibus dui. Aenean euismod, nunc non tempor egestas, elit tortor congue est, in maximus erat nibh eget nisl. Integer efficitur odio sit amet sapien pharetra auctor. Praesent quis nibh finibus, feugiat erat tristique, hendrerit tellus.</p>
+              <a href="#" class="btn btn-primary">Więcej</a>
+            </div>
+        </div>
+      </div>
+      <div class="col-sm d-flex align-items-stretch">
+        <div class="card">
+            <div class="card-header">
+                Remont na piętrze
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">12.12.2023</h5>
+              <p class="card-text">Aenean nec porttitor turpis. Ut aliquet dolor mauris. Proin dignissim est at metus egestas, a efficitur nibh eleifend. Duis sollicitudin euismod consectetur.</p>
+              <a href="#" class="btn btn-primary">Więcej</a>
+            </div>
+          </div>
+      </div>
+      <div class="col-sm d-flex align-items-stretch">
+        <div class="card">
+            <div class="card-header">
+              Jakiś inny news
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">24.06.2023</h5>
+              <p class="card-text">Duis accumsan pharetra nisl, quis tristique erat maximus placerat. Phasellus euismod risus orci, id malesuada erat pellentesque id. Praesent pretium quis orci vitae bibendum. Cras cursus placerat turpis sollicitudin vehicula. </p>
+              <a href="#" class="btn btn-primary">Więcej</a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 {% endblock %}

@@ -1,8 +1,8 @@
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
+
 from django import forms
 
 class LoginForm(forms.Form):
-    CHOICES = [
-        ('Reader', 'Reader'),
-        ('Librarian', 'Librarian'),
-    ]
-    UserType = forms.CharField(label='Log in as', widget=forms.RadioSelect(choices=CHOICES))
+    username = UsernameField(label='Login:', widget=forms.TextInput())
+    password = forms.CharField(label='Hasło:', widget=forms.PasswordInput())
+    

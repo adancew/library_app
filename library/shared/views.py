@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.urls import reverse
-
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .forms import LoginForm
@@ -10,33 +8,35 @@ from .models import Employee, Account
 from .decorators import employee_required
 
 def home_view(request, *args, **kwargs):
-    print(args, kwargs)
-    print(request.user)
+    
     return render(request, "home.html", {}) 
 
-
-
 def signin_view(request, *args, **kwargs):
-    print(args, kwargs)
-    print(request.user)
+
+    if request.user.is_authenticated:
+        user = Account.objects.get(username=request.user)
+        if Employee.objects.filter(account_id = user.id).exists():
+            return redirect('accounts:librarian-dash')
+        else:
+            return redirect('user:user-dash')
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            switch_value = form.cleaned_data['UserType']
-            
-            if switch_value == 'Librarian':
-                user = Account.objects.get(id=2)
+            user = authenticate(username=form.data['username'],password=form.data['password'],)
+            if user is not None:
                 login(request, user)
-                return redirect('accounts:librarian-dash')
+                if Employee.objects.filter(account_id=user.id).exists(): 
+                    return redirect('accounts:librarian-dash')
+                else:
+                    return redirect('user:user-dash')
             else:
-                user = Account.objects.get(id=3)
-                login(request, user)
-                return redirect('user:user-dash')
+                messages.error(request, "Podano nieprawidłowy login lub hasło.")
+                
     else:
         form = LoginForm()
 
-    return render(request, 'signin.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
 
 def signout_view(request):
     logout(request)
@@ -44,9 +44,15 @@ def signout_view(request):
 
 
 @login_required
-@employee_required  # my decorator
+@employee_required 
 def librarian_dash_view(request, *args, **kwargs):
     print(args, kwargs)
     print(request.user)
-    
     return render(request, "librarian_dash.html", {}) 
+
+
+def pick_login_view(request):
+    return render(request, 'pick_login.html')
+
+
+

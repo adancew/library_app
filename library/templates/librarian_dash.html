@@ -1,16 +1,27 @@
 {% extends 'librarian_base.html' %}
 
-{% block content %} 
+{% block content %}
 
-<h1>this is librarian dashboard</h1>
-<p>is authenticated: {{ request.user.is_authenticated }}</p>
-<h1>Welcome, {{ request.user }}</h1>
-    
+<div class="container p-3">
+    <h3>Welcome, {{ request.user }}</h3>
 
-<p><a href="/rentals/" >wypozyczenia</a></p>
-<p><a href="" >oplaty</a></p>
-<p><a href="/resources/" >zasoby</a></p>
-<p><a href="" >czytelnicy</a></p>
+    <div class="row p-3 border border-light rounded">
 
+        <div class="col-sm">
+            <a class="btn btn-light border-secondary" style="width:24rem" href="/rentals/">wypozyczenia</a>
+        </div>
+        <div class="col-sm">
+            <a class="btn btn-light border-secondary" style="width:24rem" href="">opłaty</a>
+        </div>
+        <div class="col-sm">
+            <a class="btn btn-light border-secondary" style="width:24rem" href="">zasoby</a>
+        </div>
+        <div class="col-sm">
+            <a class="btn btn-light border-secondary" style="width:24rem" href="">czytelnicy</a>
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
