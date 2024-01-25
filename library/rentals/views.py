@@ -7,6 +7,7 @@ from datetime import date, timedelta
 from shared.decorators import employee_required
 from .forms import EnterCodeForm, ScanCodeForm
 from shared.models import Account, Reader, Card, Resource, Borrowing
+from rentals.utils import has_general_right_to_borrow, has_right_to_borrow_resource
 
 # BORROW VIEWS ----------------------------------------------------------
 
@@ -90,26 +91,38 @@ def scan_resource(request, account_id, *args, **kwargs):
         
         if form.is_valid():
             if 'scan_ok' in request.POST:
-                resource_code = form.cleaned_data['Code']
-                resource = Resource.objects.get(id=resource_code)
-                reader = Reader.objects.get(account_id=account_id)
-            
-                new_rental = Borrowing(
-                    status='UNDERWAY', 
-                    date_borrowed = date.today(),
-                    date_due = date.today() + timedelta(days=14),
-                    date_returned=None,
-                    times_renewed = 0,
-                    reader = reader,
-                    resource = resource
-                    )
-                new_rental.save()
+                try:
+                    resource_code = form.cleaned_data['Code']
+                    resource = Resource.objects.get(id=resource_code)
+                    reader = Reader.objects.get(account_id=account_id)
+                
+                    # check if limit exceeded
+                    if(not has_general_right_to_borrow(reader)):
+                        return render(request, 'rentals/max_exceeded.html', {})
+                    # check if reader has right to borrow particular resource
+                    if(not has_right_to_borrow_resource(reader, resource)):
+                        return render(request, 'rentals/resource_forbidden.html', {})
 
-                return render(request, 'rentals/confirm_rental.html', {'form': form, 'account_id':account_id})
-        
+                    new_rental = Borrowing(
+                        status='UNDERWAY', 
+                        date_borrowed = date.today(),
+                        date_due = date.today() + timedelta(days=14),
+                        date_returned=None,
+                        times_renewed = 0,
+                        reader = reader,
+                        resource = resource
+                        )
+                    new_rental.save()
+                    Resource.objects.filter(id=resource.id).update(status="BORROWED")
+
+                    return render(request, 'rentals/confirm_rental.html', {'form': form, 'account_id':account_id})
+                except:
+                    form = EnterCodeForm()
+                    messages.error(request, "Kod zasobu jest nieprawidłowy")
+                    render(request, 'rentals/scan_resource.html', {'form': form})
             else:
                 form = ScanCodeForm()
-                messages.error(request, "Wystąpił błąd")
+                messages.error(request, "Kod zasobu jest nieprawidłowy")
                 return render(request, 'rentals/scan_resource.html', {'form': form, 'account_id':account_id})
     else:
         form = ScanCodeForm()
@@ -123,23 +136,35 @@ def enter_resource(request, account_id, *args, **kwargs):
     if request.method == 'POST':
         form = EnterCodeForm(request.POST)
         if form.is_valid():
-            resource_id = form.cleaned_data['Code']
-            resource = Resource.objects.get(id=resource_id)
-            reader = Reader.objects.get(account_id=account_id)
-            
-            new_rental = Borrowing(
-                status='UNDERWAY', 
-                date_borrowed = date.today(),
-                date_due = date.today() + timedelta(days=14),
-                date_returned=None,
-                times_renewed = 0,
-                reader = reader,
-                resource = resource
-                )
-            new_rental.save()
+            try:
+                resource_id = form.cleaned_data['Code']
+                resource = Resource.objects.get(id=resource_id)
+                reader = Reader.objects.get(account_id=account_id)
+                
+                # check if limit exceeded
+                if(not has_general_right_to_borrow(reader)):
+                    return render(request, 'rentals/max_exceeded.html', {})
+                # check if reader has right to borrow particular resource
+                if(not has_right_to_borrow_resource(reader, resource)):
+                    return render(request, 'rentals/resource_forbidden.html', {})
 
-            return render(request, 'rentals/confirm_rental.html',  {'form': form, 'account_id':account_id})
-            
+                new_rental = Borrowing(
+                    status='UNDERWAY', 
+                    date_borrowed = date.today(),
+                    date_due = date.today() + timedelta(days=14),
+                    date_returned=None,
+                    times_renewed = 0,
+                    reader = reader,
+                    resource = resource
+                    )
+                new_rental.save()
+                Resource.objects.filter(id=resource.id).update(status="BORROWED")
+
+                return render(request, 'rentals/confirm_rental.html',  {'form': form, 'account_id':account_id})
+            except:
+                form = EnterCodeForm()
+                messages.error(request, "Wystąpił błąd")
+                render(request, 'rentals/enter_resource.html', {'form': form})
     else:
         form = EnterCodeForm()
 
@@ -163,16 +188,17 @@ def return_scan(request, *args, **kwargs):
                                                   status="UNDERWAY")
                 if(rental):
                     rental.update(status="RETURNED", date_returned=date.today())
+                    Resource.objects.filter(id=resource.id).update(status="AVAILABLE")
                     return render(request, 'rentals/confirm_return.html', {'form': form})
         
                 else:
                     form = ScanCodeForm()
-                    messages.error(request, "Wystąpił błąd")
+                    messages.error(request, "Zeskanowany kod nie istnieje w bazie")
                     return render(request, 'rentals/scan_return.html', {'form': form})
             
             else:
                 form = ScanCodeForm()
-                messages.error(request, "Wystąpił błąd")
+                messages.error(request, "Zeskanowany kod nie istnieje w bazie")
                 return render(request, 'rentals/scan_return.html', {'form': form})
     else:
         form = ScanCodeForm()
@@ -192,8 +218,10 @@ def return_enter(request, *args, **kwargs):
                 resource_code = form.cleaned_data['Code']
                 resource = Resource.objects.get(id=resource_code)
                 rental = Borrowing.objects.filter(resource__id=resource.id, status="UNDERWAY")
+                
                 if(not rental): raise Exception # ugly, but works for now
                 rental.update(status="RETURNED", date_returned=date.today())
+                Resource.objects.filter(id=resource.id).update(status="AVAILABLE")
                 return render(request, 'rentals/confirm_return.html', {'form': form})
             except:
                 form = EnterCodeForm()

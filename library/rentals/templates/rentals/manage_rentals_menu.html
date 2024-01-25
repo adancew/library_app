@@ -1,15 +1,24 @@
 {% extends 'librarian_base.html' %}
 
-{% block content %} 
+{% block content %}
 
-<h1>strona glowna do zarzadzania wypozyczeniami</h1>
-<p>{{ request.user.is_authenticated }}</p>
-<p> {{ request.user }}</p>
+<div class="container p-3">
+    <h3>Strona główna do zarządzania wypożyczeniami</h3>
 
-<p><a href="/rentals/scan_card/">nowe wypozyczenie</a></p>
+    <div class="row p-3 border border-light rounded">
 
-<p><a href="/rentals/return_scan">zwrot</a></p>
+        <div class="col-sm">
+            <a class="btn btn-light border-secondary" style="width:24rem" 
+            href="/rentals/scan_card/">nowe wypożyczenie</a>
+        </div>
+        <div class="col-sm">
+            <a class="btn btn-light border-secondary" style="width:24rem" 
+            href="/rentals/return_scan">zwrot</a>
+        </div>
+        
 
+    </div>
 
-    
+</div>
+
 {% endblock %}

@@ -36,6 +36,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+LOGIN_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / "emails"
+
+
 # Application definitions
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -163,3 +171,5 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
 }
+
+
