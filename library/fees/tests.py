@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.test import TestCase
 from django.urls import reverse
+from django.urls.exceptions import NoReverseMatch
 from django.contrib.messages import get_messages
 from fees.forms import FeeForm, AddFeeForm
 
@@ -81,6 +82,10 @@ class FeeViewsTest(TestCase):
     def test_details_view_invalid_id(self):
         with self.assertRaises(Fee.DoesNotExist):
             self.client.get(reverse('fees:details', args=[self.fee.id + 1]))
+            
+    def test_details_view_none_id(self):
+        with self.assertRaises(NoReverseMatch):
+            self.client.get(reverse('fees:details', args=[None]))
     
     def test_register_payment_view(self):
         response = self.client.get(reverse('fees:register-payment', args=[self.fee.id]))
@@ -96,6 +101,10 @@ class FeeViewsTest(TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), 'Nie można zarejestrować uiszczenia opłaty')
         
+    def test_register_payment_view_none_id(self):
+        with self.assertRaises(NoReverseMatch):
+            self.client.get(reverse('fees:register-payment', args=[None]))
+        
     def test_add_view(self):
         response = self.client.get(reverse('fees:add'))
         self.assertEqual(response.status_code, 200)
@@ -108,6 +117,10 @@ class FeeViewsTest(TestCase):
     def test_edit_view_invalid_id(self):
         with self.assertRaises(Fee.DoesNotExist):
             self.client.get(reverse('fees:edit', args=[self.fee.id + 1]))
+    
+    def test_edit_view_none_id(self):
+        with self.assertRaises(NoReverseMatch):
+            self.client.get(reverse('fees:edit', args=[None]))
             
     def test_delete_view(self):
         response = self.client.get(reverse('fees:delete', args=[self.fee.id]))
@@ -123,4 +136,8 @@ class FeeViewsTest(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), 'Nie można anulować opłaty')
+        
+    def test_delete_view_none_id(self):
+        with self.assertRaises(NoReverseMatch):
+            self.client.get(reverse('fees:delete', args=[None]))
         

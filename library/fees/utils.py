@@ -2,7 +2,7 @@ from datetime import datetime
 from shared.models import Fee, Account, Reader
 
 borrowing_status_dict = {
-    "UNDERWAY": "w trakcie",
+    "UNDERWAY": "w toku",
     "OVERKEPT": "przetrzymane",
     "RETURNED": "zwrócone",
     "LOST": "zgubione"

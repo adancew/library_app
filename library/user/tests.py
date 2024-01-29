@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 from django.test import TestCase
 from django.urls import reverse
+from django.urls.exceptions import NoReverseMatch
 from django.contrib.messages import get_messages
 
 from shared.models import Account, Reader, Borrowing, Resource
@@ -50,6 +51,10 @@ class UserViewsTest(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), 'Wystąpił błąd - nie można przedłużyć wypożyczenia')
+        
+    def test_renew_view_none_id(self):
+        with self.assertRaises(NoReverseMatch):
+            self.client.get(reverse('user:renew', args=[None]))
         
     def test_renew_view_limit_exceeded(self):
         self.borrowing.times_renewed = 2

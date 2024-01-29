@@ -18,8 +18,11 @@ class ResourceChoiceField(forms.ModelChoiceField):
         return f"{obj.title} ({obj.id})"
 
 class FeeForm(forms.Form):
-    amount = forms.IntegerField(
-        label='Kwota', 
+    amount = forms.DecimalField(
+        label='Kwota',
+        max_digits=6,
+        decimal_places=2,
+        min_value=0.01,
         widget=forms.NumberInput(attrs={'class': 'form-control'})
     )
     reason = forms.CharField(

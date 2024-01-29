@@ -1,5 +1,9 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 from django.contrib.auth.models import AbstractUser
+
+from decimal import Decimal
+
 
 class Account(AbstractUser):
     first_name = models.CharField()
@@ -118,7 +122,7 @@ class Comic(models.Model):
 
 
 class Fee(models.Model):
-    amount = models.IntegerField()
+    amount = models.DecimalField(decimal_places=2, max_digits=6, validators=[MinValueValidator(Decimal('0.01'))])
     reason = models.CharField()
     date_issued = models.DateField()
     is_paid = models.BooleanField()

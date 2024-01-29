@@ -44,6 +44,7 @@
                 <td>Zasób</td>
                 <td>Kwota</td>
                 <td>Powód</td>
+                <td>Uiszczona</td>
                 <td>Akcje</td>
             </tr>
         </thead>
@@ -56,6 +57,7 @@
                 <td><a href="/resources/{{ fee.resource.id }}">{{fee.resource_info}}</a></td>
                 <td>{{fee.amount}}</td>
                 <td>{{fee.reason}}</td>
+                <td>{% if fee.is_paid %}Tak{% else %}Nie{% endif %}</td>
                 <td>
                     {% if not fee.is_paid %}
                     <a class="btn btn-outline-success m-1" href="/fees/{{ fee.id }}/register-payment">Zarejestruj uiszczenie</a>
