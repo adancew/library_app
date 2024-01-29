@@ -10,6 +10,8 @@ from .utils import RenewalLimitExceededException, get_user_borrowings, renew_bor
 def index(request, *args, **kwargs):
     return render(request, "user/user_dashboard.html", {'borrowings': get_user_borrowings(request.user)}) 
 
+@login_required
+@reader_required
 def renew(request, borrowing_id, *args, **kwargs):
     try:
         renew_borrowing(borrowing_id)
