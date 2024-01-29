@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from shared.decorators import reader_required
-from .utils import get_user_borrowings, renew_borrowing
+from .utils import RenewalLimitExceededException, get_user_borrowings, renew_borrowing
 
 @login_required
 @reader_required  # my decorator
@@ -14,7 +14,9 @@ def renew(request, borrowing_id, *args, **kwargs):
     try:
         renew_borrowing(borrowing_id)
         messages.success(request, 'Wypożyczenie zostało przedłużone')
-    except:
+    except RenewalLimitExceededException:
         messages.error(request, 'Nie można przedłużyć wypożyczenia - przekroczono limit 2 przedłużeń')
+    except Exception as e:
+        messages.error(request, 'Wystąpił błąd - nie można przedłużyć wypożyczenia')
     finally:
         return redirect('user:user-dash')

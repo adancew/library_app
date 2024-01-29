@@ -22,7 +22,7 @@ def details(request, fee_id, *args, **kwargs):
 def register_payment(request, fee_id, *args, **kwargs):
     try:
         register_fee_payment(fee_id)
-        messages.success(request, 'Opłata została zarejestrowana jako uiszczona')
+        messages.success(request, 'Uiszczenie opłaty zostało zarejestrowane')
     except:
         messages.error(request, 'Nie można zarejestrować uiszczenia opłaty')
     finally:
