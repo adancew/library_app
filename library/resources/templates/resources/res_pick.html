@@ -1,16 +1,11 @@
-{% extends 'librarian_base.html' %}
+{% extends 'librarian_nav.html' %}
+
 
 {% block content %}
-
 <div class="container p-2">
-
-    <a class="btn btn-outline-secondary m-3" style="width: 10rem" href="..">&larr; Powrót</a>
-
+    <a class="btn btn-outline-secondary m-3" style="width: 10rem" href="..">&larr;&nbsp;&nbsp;&nbsp;Powrót</a>
     <h1>Wybierz typ zasobu do utworzenia</h1>
-
-
     <div class="row p-3 border border-light rounded w-50">
-
         <div class="col-sm">
             <a class="btn btn-light border-secondary p-3 m-3" style="width:24rem" 
             href="/resources/enter/audiobook">Audiobook</a>
@@ -31,12 +26,6 @@
             <a class="btn btn-light border-secondary p-3 m-3" style="width:24rem" 
             href="/resources/enter/movie">Film</a>
         </div>
-
     </div>
-
-    
-    </row>
-
 </div>
-
 {% endblock %}

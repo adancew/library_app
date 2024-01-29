@@ -1,0 +1,26 @@
+{% extends 'librarian_nav.html' %}
+
+
+{% block content %}
+<div class="container p-2">
+    <a class="btn btn-outline-secondary m-3" href="..">&larr;&nbsp;&nbsp;&nbsp;Powrót</a>
+    <h1>Szczegóły opłaty</h1>
+    <div class="messages">
+        {% for message in messages %}
+        <span {% if message.tags %} class="{{ message.tags }} p-2 my-5" {% endif %}>{{ message }}</span>
+        {% endfor %}
+    </div><br>
+    <table class="table w-50">
+        {% for key, value in fee.items %}
+        <tr>
+            <td class="fw-bold">{{ key }}</td>
+            {% if value %}
+            <td>{{ value }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

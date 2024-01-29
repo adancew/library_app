@@ -1,24 +1,18 @@
-{% extends 'librarian_base.html' %}
+{% extends 'librarian_nav.html' %}
+
 
 {% block content %}
-
 <div class="container p-3">
     <h3>Strona główna do zarządzania wypożyczeniami</h3>
-
     <div class="row p-3 border border-light rounded">
-
         <div class="col-sm">
             <a class="btn btn-light border-secondary" style="width:24rem" 
-            href="/rentals/scan_card/">nowe wypożyczenie</a>
+            href="/rentals/scan_card/">Nowe wypożyczenie</a>
         </div>
         <div class="col-sm">
             <a class="btn btn-light border-secondary" style="width:24rem" 
-            href="/rentals/return_scan">zwrot</a>
+            href="/rentals/return_scan">Zwrot</a>
         </div>
-        
-
     </div>
-
 </div>
-
 {% endblock %}

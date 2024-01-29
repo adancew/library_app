@@ -111,7 +111,7 @@ def scan_resource(request, account_id, *args, **kwargs):
                         times_renewed = 0,
                         reader = reader,
                         resource = resource
-                        )
+                    )
                     new_rental.save()
                     Resource.objects.filter(id=resource.id).update(status="BORROWED")
 
@@ -156,7 +156,7 @@ def enter_resource(request, account_id, *args, **kwargs):
                     times_renewed = 0,
                     reader = reader,
                     resource = resource
-                    )
+                )
                 new_rental.save()
                 Resource.objects.filter(id=resource.id).update(status="BORROWED")
 

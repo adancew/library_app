@@ -1,26 +1,17 @@
-{% extends 'librarian_base.html' %}
+{% extends 'librarian_nav.html' %}
+
 
 {% block content %}
-
-
 <div class="container p-2">
-
-    <a class="btn btn-outline-secondary m-3" style="width: 10rem" href="..">&larr; Powrót</a>
-
+    <a class="btn btn-outline-secondary m-3" style="width: 10rem" href="..">&larr;&nbsp;&nbsp;&nbsp;Powrót</a>
     <h1>Szczegóły zasobu</h1>
-
     <table class="table w-50">
-
         {% for key, value in resource.items %}
-
         <tr>
             <td class="fw-bold">{{ key }}</td>
             <td>{{ value }}</td>
         </tr>
-
         {% endfor %}
     </table>
-
 </div>
-
 {% endblock %}

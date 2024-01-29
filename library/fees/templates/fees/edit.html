@@ -3,14 +3,14 @@
 
 {% block content %}
 <div class="container p-2">
-    <a class="btn btn-outline-secondary m-3" style="width: 10rem" href="..">&larr;&nbsp;&nbsp;&nbsp;Powrót</a>
-    <h1>Edycja zasobu</h1>
+    <a class="btn btn-outline-secondary m-3" href="..">&larr;&nbsp;&nbsp;&nbsp;Powrót</a>
+    <h1>Edycja opłaty</h1>
     <form action="" method="post">
         {% csrf_token %}
         <table>
             {% for field in form %}
             <tr>
-                <td>{{ field.errors }}
+                <td style="padding-right:5rem;">{{ field.errors }}
                 {{ field.label_tag }}</td>
                 <td>{{ field }}</td>
             </tr>

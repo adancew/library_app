@@ -1,22 +1,67 @@
 <!doctype html>
 {% load static %}
 <head>
-    <title>a title</title>
+    <title>Strona</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
+    <style>
+        a.nav-link, a.dropdown-item {
+            text-decoration: none !important;
+        }
+    </style>
 </head>
 
 <body>
-    
     {% block navbar %}
-    <!-- here be navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="navbar-brand" href="#">Biblioteka</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto navbar-left">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Strona główna<span class="sr-only">(current)</span></a>
+                    </li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Katalog</a>
+                    </li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">O nas</a>
+                    </li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kontakt</a>
+                    </li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% block nav-extension %}{% endblock %}
+                </ul>
+                <ul class="navbar-nav me-auto navbar-right">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Moje konto
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/accounts/dashboard/">Panel sterowania</a></li>
+                            <li><a class="dropdown-item" href="#">Ustawienia</a></li>
+                            <li><div class="dropdown-divider"></div></li>
+                            <li><a class="dropdown-item" href="/accounts/logout/">Wyloguj</a></li>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accounts/login-as/">Zaloguj</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
     {% endblock %}
 
     {% block content %} 
-    <p> replace me</p>
+    <!-- here be content -->
     {% endblock %}
 </body>
 

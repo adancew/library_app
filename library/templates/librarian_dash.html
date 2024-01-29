@@ -1,27 +1,22 @@
-{% extends 'librarian_base.html' %}
+{% extends 'librarian_nav.html' %}
+
 
 {% block content %}
-
 <div class="container p-3">
-    <h3>Welcome, {{ request.user }}</h3>
-
+    <h3>Welcome, {{ request.user.first_name }}</h3>
     <div class="row p-3 border border-light rounded">
-
         <div class="col-sm">
-            <a class="btn btn-light border-secondary" style="width:24rem" href="/rentals/">wypozyczenia</a>
+            <a class="btn btn-light border-secondary" style="width:24rem" href="/rentals/">Wypożyczenia</a>
         </div>
         <div class="col-sm">
-            <a class="btn btn-light border-secondary" style="width:24rem" href="">opłaty</a>
+            <a class="btn btn-light border-secondary" style="width:24rem" href="/fees/">Opłaty</a>
         </div>
         <div class="col-sm">
-            <a class="btn btn-light border-secondary" style="width:24rem" href="/resources/">zasoby</a>
+            <a class="btn btn-light border-secondary" style="width:24rem" href="/resources/">Zasoby</a>
         </div>
         <div class="col-sm">
-            <a class="btn btn-light border-secondary" style="width:24rem" href="">czytelnicy</a>
+            <a class="btn btn-light border-secondary" style="width:24rem" href="">Czytelnicy</a>
         </div>
-
     </div>
-
 </div>
-
 {% endblock %}

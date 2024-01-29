@@ -1,39 +1,27 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-
 <div class="container p-3 align-middle">
-    <p><a href="..">&larr; powrót</a></p>
-    
+    <p><a href="..">&larr; Powrót</a></p>
     <h1>Zeskanuj kartę biblioteczną</h1>
-
-
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
         <span {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</span>
-
         {% endfor %}
     </div>
     {% endif %}
-
     <div class="row p-3 m-3 border border-secondary rounded w-50">
-    <p>Symulacja skanowania karty bibliotecznej:</p>
-    <form class="site-form p-2" action="" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input class="p-3" type="submit" name="scan_ok" value="poprawny kod karty" />
-        <input class="p-3" type="submit" name="scan_bad" value="niepoprawny kod kardy" />
-    </form>
+        <p>Symulacja skanowania karty bibliotecznej:</p>
+        <form class="site-form p-2" action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input class="p-3" type="submit" name="scan_ok" value="Poprawny kod karty" />
+            <input class="p-3" type="submit" name="scan_bad" value="Niepoprawny kod kardy" />
+        </form>
     </div>
-
     <a class="btn btn-light border-secondary m-3 p-4" style="width:24rem" 
     href="/rentals/enter_card/">Ręczne wprowadzanie kodu karty</a>
-
-
-   
 </div>
-
-
-
 {% endblock %}

@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'shared',
     'rentals',
     'user', # views of the reader
-    'resources'
+    'resources',
+    'fees'
 ]
 
 # TODO maybe later: create middleware for managing users

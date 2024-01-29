@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, hashers
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -9,6 +9,7 @@ from .decorators import employee_required
 
 def home_view(request, *args, **kwargs):
     
+    print(hashers.make_password('haslo'))
     return render(request, "home.html", {}) 
 
 def signin_view(request, *args, **kwargs):

@@ -21,7 +21,7 @@ class Administrator(models.Model):
     account = models.OneToOneField(Account, models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'administrator'
 
 
@@ -30,7 +30,7 @@ class Card(models.Model):
     reader = models.OneToOneField('Reader', models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'card'
 
 
@@ -38,7 +38,7 @@ class Employee(models.Model):
     account = models.OneToOneField(Account, models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'employee'
 
 
@@ -46,7 +46,7 @@ class Reader(models.Model):
     account = models.OneToOneField(Account, models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'reader'
 
 
@@ -58,7 +58,7 @@ class Audiobook(models.Model):
     resource = models.ForeignKey('Resource', models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'audiobook'
 
 
@@ -69,7 +69,7 @@ class Book(models.Model):
     resource = models.ForeignKey('Resource', models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'book'
 
 
@@ -83,7 +83,7 @@ class Borrowing(models.Model):
     resource = models.ForeignKey('Resource', models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'borrowing'
 
 
@@ -92,7 +92,7 @@ class Branch(models.Model):
     address = models.CharField()
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'branch'
 
 
@@ -101,7 +101,7 @@ class Catalogue(models.Model):
     branch = models.ForeignKey(Branch, models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'catalogue'
 
 
@@ -113,7 +113,7 @@ class Comic(models.Model):
     resource = models.ForeignKey('Resource', models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'comic'
 
 
@@ -128,7 +128,7 @@ class Fee(models.Model):
     resource = models.ForeignKey('Resource', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'fee'
 
 
@@ -138,7 +138,7 @@ class Journal(models.Model):
     resource = models.ForeignKey('Resource', models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'journal'
 
 
@@ -151,7 +151,7 @@ class Movie(models.Model):
     resource = models.ForeignKey('Resource', models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'movie'
 
 
@@ -165,5 +165,5 @@ class Resource(models.Model):
     genre = models.CharField()
 
     class Meta:
-        managed = False
+        #managed = False
         db_table = 'resource'

@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-
-
 <div class="container p-5">
     <h1>Logowanie</h1>
-
     <div class="card">
         <div class="card-body">
-
             {% if messages %}
             <div class="messages">
                 {% for message in messages %}
@@ -16,19 +13,13 @@
                 {% endfor %}
             </div>
             {% endif %}
-
-
             <form method="post" class="p-4">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-secondary">Zaloguj</button>
             </form>
-
             <span><a href="/accounts/password_reset">Odzyskiwanie hasła</a></span>
-
         </div>
-
     </div>
 </div>
-
 {% endblock %}

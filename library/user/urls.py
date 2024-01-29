@@ -1,13 +1,14 @@
-from django.urls import path, include
+from django.urls import path
 
 
 from user.views import (
-    reader_dash_view, 
+    index,
+    renew
 )
 
 app_name = 'user'
 
 urlpatterns = [
-    #path('', reader_dash_view, name='user-dash'),
-    path('dashboard/', reader_dash_view, name="user-dash"),
+    path('dashboard/', index, name="user-dash"),
+    path('<int:borrowing_id>/renew', renew, name="renew"),
 ]

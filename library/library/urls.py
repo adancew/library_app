@@ -15,5 +15,5 @@ urlpatterns = [
 
     path('resources/', include('resources.urls')),
     
-    
+    path('fees/', include('fees.urls')),
 ]

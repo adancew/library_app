@@ -1,22 +1,17 @@
 {% extends 'base.html' %}
 
-{% block content %}
 
+{% block content %}
 <div class="container p-3 align-middle">
     <p><a href="..">&larr; powrót</a></p>
-    
     <h1>Podaj kod karty bibliotecznej</h1>
-
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
         <span {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</span>
-
         {% endfor %}
     </div>
     {% endif %}
-
-  
     <form action=""method="post">
         {% csrf_token %}
         {% for field in form %}
@@ -27,10 +22,5 @@
         <button class="btn btn-outline-secondary" type="submit" value="Zatwierdz">Zatwierdź</button>
         <a class="btn btn-outline-secondary" href="..">Anuluj</a>
     </form>
-
-   
 </div>
-
 {% endblock %}
-
-

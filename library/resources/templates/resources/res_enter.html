@@ -1,15 +1,10 @@
-{% extends 'librarian_base.html' %}
+{% extends 'librarian_nav.html' %}
+
 
 {% block content %}
-
-
 <div class="container p-2">
-
-    <a class="btn btn-outline-secondary m-3" style="width: 10rem" href="/resources/enter">&larr; Powrót</a>
-
+    <a class="btn btn-outline-secondary m-3" style="width: 10rem" href="/resources/enter">&larr;&nbsp;&nbsp;&nbsp;Powrót</a>
     <h1>Tworzenie zasobu</h1>
-
-
     <form action="" method="post">
         {% csrf_token %}
         <table>
@@ -24,8 +19,5 @@
         <button class="btn btn-outline-secondary" type="submit" value="Zatwierdz">Zatwierdź</button>
         <a class="btn btn-outline-secondary" href="..">Anuluj</a>
     </form>
-
-
 </div>
-
 {% endblock %}

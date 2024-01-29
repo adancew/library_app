@@ -23,7 +23,6 @@ def index(request, *args, **kwargs):
 
 
 @login_required
-@employee_required 
 def resource_detail(request, resource_id, *args, **kwargs):
     res_as_dict = get_resource_with_details(resource_id)
     return render(request, "resources/res_detail.html", {'resource': res_as_dict}) 

@@ -18,6 +18,5 @@ urlpatterns = [
     path('enter/<str:res_type>', resource_enter, name="resources-enter"),
     path('<int:resource_id>/', resource_detail, name="resource-detail"),
     path('<int:resource_id>/edit', resource_edit, name="resource-edit"),
-    path('<int:resource_id>/delete', resource_delete, name="resource-delete"),
-
+    path('<int:resource_id>/delete', resource_delete, name="resource-delete")
 ]

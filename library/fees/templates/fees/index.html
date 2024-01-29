@@ -16,47 +16,53 @@
         <div class="col-sm">
             <a class="btn btn-light border-secondary" style="width:24rem" href="">Czytelnicy</a>
         </div>
-    </div>
+    </div><br>
     <div class="row p-3 border border-light rounded w-50">
         <form class="d-flex" role="search" method="POST">
             {% csrf_token %}
-            <input class="form-control me-2" type="search" placeholder="Szukaj w katalogu..." name="search_query"
+            <input class="form-control me-2" type="search" placeholder="Szukaj..." name="search_query"
                 aria-label="Szukaj">
             <button class="btn btn-outline-success" type="submit">Szukaj</button>
         </form>
-    </div>
+    </div><br>
+    <span class="display-1 ">Opłaty</span>
+    <a class="btn btn-outline-success m-3" href="/fees/add">Dodaj</a>
+    <br>
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
         <span {% if message.tags %} class="{{ message.tags }} p-2 my-5" {% endif %}>{{ message }}</span>
         {% endfor %}
-    </div>
+    </div><br>
     {% endif %}
-    <span class="display-1 ">Zasoby</span>
-    <a class="btn btn-outline-success m-3" style="width: 10rem" href="/resources/enter">Dodaj</a>
     <table class="table">
         <thead>
             <tr>
-                <td>Tytuł</td>
-                <td>Autor</td>
-                <td>Typ</td>
                 <td>Id</td>
-                <td>Dostępność</td>
+                <td>Czytelnik</td>
+                <td>Wypożyczenie</td>
+                <td>Zasób</td>
+                <td>Kwota</td>
+                <td>Powód</td>
                 <td>Akcje</td>
             </tr>
         </thead>
         <tbody>
-            {% for r in resources %}
+            {% for fee in fees %}
             <tr>
-                <td>{{r.title}}</a>
-                <td>{{r.author}}</td>
-                <td>{{r.type}}</td>
-                <td>{{r.id}}</td>
-                <td>{{r.status}}</td>
+                <td>{{fee.id}}</td>
+                <td>{{fee.reader_name}}</td>
+                <td>{{fee.borrowing_info}}</td>
+                <td><a href="/resources/{{ fee.resource.id }}">{{fee.resource_info}}</a></td>
+                <td>{{fee.amount}}</td>
+                <td>{{fee.reason}}</td>
                 <td>
-                    <a class="btn btn-outline-secondary m-1" href="/resources/{{ r.id }}">Szczegóły</a>
-                    <a class="btn btn-outline-secondary m-1" href="/resources/{{ r.id }}/edit">Edytuj</a>
-                    <a class="btn btn-outline-danger m-1" href="/resources/{{ r.id }}/delete">Usuń</a>
+                    {% if not fee.is_paid %}
+                    <a class="btn btn-outline-success m-1" href="/fees/{{ fee.id }}/register-payment">Zarejestruj uiszczenie</a>
+                    {% endif %}
+                    <a class="btn btn-outline-secondary m-1" href="/fees/{{ fee.id }}/details">Szczegóły</a>
+                    <a class="btn btn-outline-secondary m-1" href="/fees/{{ fee.id }}/edit">Edytuj</a>
+                    <a class="btn btn-outline-danger m-1" href="/fees/{{ fee.id }}/delete">Anuluj</a>
                 </td>
             </tr>
             {% endfor %}

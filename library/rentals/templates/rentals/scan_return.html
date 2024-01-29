@@ -1,40 +1,28 @@
-
 {% extends 'base.html' %}
 
+
 {% block content %}
-
 <div class="container p-3 align-middle">
-    <p><a href="..">&larr; powrót</a></p>
-    
+    <p><a href="..">&larr; Powrót</a></p>
     <h1>Zeskanuj kod zasobu bibliotecznego</h1>
-
-
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
         <span {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</span>
-
         {% endfor %}
     </div>
     {% endif %}
-
     <div class="row p-3 m-3 border border-secondary rounded w-50">
-    <p>Symulacja skanowania kodu zasobu bibliotecznego:</p>
-    <form class="site-form p-2" action="" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input class="p-3" type="submit" name="scan_ok" value="poprawny kod zasobu" />
-        <input class="p-3" type="submit" name="scan_bad" value="niepoprawny kod zasobu" />
-    </form>
+        <p>Symulacja skanowania kodu zasobu bibliotecznego:</p>
+        <form class="site-form p-2" action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input class="p-3" type="submit" name="scan_ok" value="Poprawny kod zasobu" />
+            <input class="p-3" type="submit" name="scan_bad" value="Niepoprawny kod zasobu" />
+        </form>
     </div>
-
     <a class="btn btn-light border-secondary m-3 p-4" style="width:28rem" 
-    href="/rentals/return_enter/">
-    Ręczne wprowadzanie kodu zasobu</a>
-   
+    href="/rentals/return_enter/">Ręczne wprowadzanie kodu zasobu</a>
 </div>
-
-
-
 {% endblock %}
 
