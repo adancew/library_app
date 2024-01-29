@@ -22,9 +22,9 @@ def details(request, fee_id, *args, **kwargs):
 def register_payment(request, fee_id, *args, **kwargs):
     try:
         register_fee_payment(fee_id)
-        messages.success(request, 'Uiszczenie opłaty zostało zarejestrowane')
+        messages.success(request, 'Uiszczenie opłaty zostało zarejestrowane', extra_tags='success')
     except:
-        messages.error(request, 'Nie można zarejestrować uiszczenia opłaty')
+        messages.error(request, 'Nie można zarejestrować uiszczenia opłaty', extra_tags='failure')
     finally:
         return redirect('fees:index')
 
@@ -35,7 +35,7 @@ def add(request, *args, **kwargs):
         form = AddFeeForm(request.POST)
         if form.is_valid():
             fee = add_fee(form)
-            messages.success(request, 'Opłata została dodana')
+            messages.success(request, 'Opłata została dodana', extra_tags='success')
             return redirect('fees:details', fee_id=fee.id)
     else:
         form = AddFeeForm()
@@ -48,7 +48,7 @@ def edit(request, fee_id, *args, **kwargs):
         form = FeeForm(request.POST)
         if form.is_valid():
             update_fee(fee_id, form)
-            messages.success(request, 'Opłata została zaktualizowana')
+            messages.success(request, 'Opłata została zaktualizowana', extra_tags='success')
             return redirect('fees:details', fee_id=fee_id)
     else:
         form = FeeForm(initial=get_fee_details(fee_id))
@@ -61,8 +61,8 @@ def edit(request, fee_id, *args, **kwargs):
 def delete(request, fee_id, *args, **kwargs):
     try:
         delete_fee(fee_id)
-        messages.success(request, 'Opłata została anulowana')
+        messages.success(request, 'Opłata została anulowana', extra_tags='success')
     except:
-        messages.error(request, 'Nie można anulować opłaty')
+        messages.error(request, 'Nie można anulować opłaty', extra_tags='failure')
     finally:
         return redirect('fees:index')

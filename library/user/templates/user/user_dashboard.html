@@ -44,7 +44,7 @@
                 {% endif %}
                 <td>{{borrowing.times_renewed}}</td>
                 <td>
-                    <a class="btn btn-outline-success m-1" href="/user/{{ borrowing.id }}/renew">Przedłuż</a>
+                    <a class="btn btn-outline-success m-1" id="renew" href="/user/{{ borrowing.id }}/renew">Przedłuż</a>
                 </td>
             </tr>
             {% endfor %}

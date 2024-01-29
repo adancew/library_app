@@ -15,10 +15,10 @@ def index(request, *args, **kwargs):
 def renew(request, borrowing_id, *args, **kwargs):
     try:
         renew_borrowing(borrowing_id)
-        messages.success(request, 'Wypożyczenie zostało przedłużone')
+        messages.success(request, 'Wypożyczenie zostało przedłużone', extra_tags='success')
     except RenewalLimitExceededException:
-        messages.error(request, 'Nie można przedłużyć wypożyczenia - przekroczono limit 2 przedłużeń')
+        messages.error(request, 'Nie można przedłużyć wypożyczenia - przekroczono limit 2 przedłużeń', extra_tags='failure')
     except Exception as e:
-        messages.error(request, 'Wystąpił błąd - nie można przedłużyć wypożyczenia')
+        messages.error(request, 'Wystąpił błąd - nie można przedłużyć wypożyczenia', extra_tags='failure')
     finally:
         return redirect('user:user-dash')

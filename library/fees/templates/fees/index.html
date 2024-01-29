@@ -26,7 +26,7 @@
         </form>
     </div><br>
     <span class="display-1 ">Opłaty</span>
-    <a class="btn btn-outline-success m-3" href="/fees/add">Dodaj</a>
+    <a class="btn btn-outline-success m-3" id="add" href="/fees/add">Dodaj</a>
     <br>
     {% if messages %}
     <div class="messages">
@@ -55,16 +55,16 @@
                 <td>{{fee.reader_name}}</td>
                 <td>{{fee.borrowing_info}}</td>
                 <td><a href="/resources/{{ fee.resource.id }}">{{fee.resource_info}}</a></td>
-                <td>{{fee.amount}}</td>
-                <td>{{fee.reason}}</td>
+                <td id="amount">{{fee.amount}}</td>
+                <td id="reason">{{fee.reason}}</td>
                 <td>{% if fee.is_paid %}Tak{% else %}Nie{% endif %}</td>
                 <td>
                     {% if not fee.is_paid %}
-                    <a class="btn btn-outline-success m-1" href="/fees/{{ fee.id }}/register-payment">Zarejestruj uiszczenie</a>
+                    <a class="btn btn-outline-success m-1" id="register-payment" href="/fees/{{ fee.id }}/register-payment">Zarejestruj uiszczenie</a>
                     {% endif %}
-                    <a class="btn btn-outline-secondary m-1" href="/fees/{{ fee.id }}/details">Szczegóły</a>
-                    <a class="btn btn-outline-secondary m-1" href="/fees/{{ fee.id }}/edit">Edytuj</a>
-                    <a class="btn btn-outline-danger m-1" href="/fees/{{ fee.id }}/delete">Anuluj</a>
+                    <a class="btn btn-outline-secondary m-1" id="details" href="/fees/{{ fee.id }}/details">Szczegóły</a>
+                    <a class="btn btn-outline-secondary m-1" id="edit" href="/fees/{{ fee.id }}/edit">Edytuj</a>
+                    <a class="btn btn-outline-danger m-1" id="delete" href="/fees/{{ fee.id }}/delete">Anuluj</a>
                 </td>
             </tr>
             {% endfor %}

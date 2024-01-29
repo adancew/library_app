@@ -13,11 +13,11 @@
     <table class="table w-50">
         {% for key, value in fee.items %}
         <tr>
-            <td class="fw-bold">{{ key }}</td>
+            <td class="fw-bold key">{{ key }}</td>
             {% if value %}
-            <td>{{ value }}</td>
+            <td class="value">{{ value }}</td>
             {% else %}
-            <td></td>
+            <td class="value"></td>
             {% endif %}
         </tr>
         {% endfor %}
