@@ -4,16 +4,11 @@ from django.test import TestCase
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.contrib.messages import get_messages
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
 
-from fees.forms import FeeForm, AddFeeForm
 from fees.utils import get_fees, get_fee_details
 from rentals.forms import ScanCodeForm
 from shared.models import Fee, Account, Reader, Employee, Card
+
 
 class RentalFormTest(TestCase):
     def setUp(self):
@@ -58,7 +53,7 @@ class RentalViewsTest(TestCase):
         
     def test_scan_card_view_none_id(self):
         with self.assertRaises(TypeError):
-            response = self.client.post(reverse('rentals:scan-card'), data={'Code': None})
+            self.client.post(reverse('rentals:scan-card'), data={'Code': None})
             
     def test_enter_card_view(self):
         response = self.client.get(reverse('rentals:enter-card'), data={'Code': self.card.id})
@@ -73,7 +68,7 @@ class RentalViewsTest(TestCase):
         
     def test_enter_card_view_none_id(self):
         with self.assertRaises(TypeError):
-            response = self.client.post(reverse('rentals:enter-card'), data={'Code': None})
+            self.client.post(reverse('rentals:enter-card'), data={'Code': None})
             
     def test_reader_menu_view(self):
         response = self.client.get(reverse('rentals:reader-menu', args=[self.card.reader.account.id]))
