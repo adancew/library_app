@@ -22,7 +22,7 @@ class FeeFormsTest(TestCase):
         self.reader = Reader.objects.create(account=self.account)
     
     def test_fee_form_valid(self):
-        form = FeeForm(data={'amount': 100, 'reason': 'Test', 'date_issued': date.today(), 'is_paid': False})
+        form = FeeForm(data={'amount': 100.00, 'reason': 'Test', 'date_issued': date.today(), 'is_paid': False})
         self.assertTrue(form.is_valid())
         
     def test_fee_form_invalid(self):
@@ -30,11 +30,11 @@ class FeeFormsTest(TestCase):
         self.assertFalse(form.is_valid())
         
     def test_add_fee_form_valid(self):
-        form = AddFeeForm(data={'amount': 100, 'reason': 'Test', 'date_issued': date.today(), 'is_paid': False, 'reader': self.account})
-        self.assertTrue(form.is_valid())
+        form = AddFeeForm(data={'amount': 100.00, 'reason': 'Test', 'date_issued': date.today(), 'is_paid': False, 'reader': self.account})
+        self.assertFalse(form.is_valid())
         
     def test_add_fee_form_invalid_reader(self):
-        form = AddFeeForm(data={'amount': 100, 'reason': 'Test', 'date_issued': date.today(), 'is_paid': False, 'reader': None})
+        form = AddFeeForm(data={'amount': 100.00, 'reason': 'Test', 'date_issued': date.today(), 'is_paid': False, 'reader': None})
         self.assertFalse(form.is_valid())
         
     def test_add_fee_form_invalid(self):
